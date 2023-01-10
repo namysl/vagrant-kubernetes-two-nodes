@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-kube
+  name: nginx-kube
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: nginx-kube
+  template:
+    metadata:
+      labels:
+        app: nginx-kube
+    spec:
+      containers:
+        - name: nginx
+          image: "docker.io/nginx:1.23"
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "32Mi"
+              cpu: "64m"
+            requests:
+              memory: "16Mi"
+              cpu: "32m"
