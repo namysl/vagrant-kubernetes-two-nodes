@@ -1,4 +1,0 @@
-spec:
-  ports:
-  - nodePort: 8001
-  type: NodePort
