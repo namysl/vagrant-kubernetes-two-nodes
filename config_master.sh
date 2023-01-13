@@ -35,19 +35,14 @@ run_grafana(){
   microk8s kubectl patch svc grafana-np --type='json' --patch='[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":30003}]'
 }
 
-#vi /var/snap/microk8s/current/args/kubelet
-#--container-runtime=docker
-#microk8s stop
-#microk8s start
-
 microk8s kubectl taint nodes master node-role.kubernetes.io/master=:NoSchedule
 microk8s kubectl label node master node-role.kubernetes.io/master=
 
 install_k6
 run_nginx
 run_dashboard
-#run_prometheus
-#run_grafana
+run_prometheus
+run_grafana
 
 echo "NEXT STEPS - PERFORM MANUALLY:
 
