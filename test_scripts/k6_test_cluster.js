@@ -16,7 +16,7 @@ export const options = {
 };
 
 export default function () {
-  http.get('http://192.168.49.2:30001');
+  http.get('http://192.168.121.253:30001');
   sleep(1);
 }
 
