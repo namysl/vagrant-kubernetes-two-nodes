@@ -24,6 +24,7 @@ run_dashboard(){
 run_prometheus(){
   microk8s helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
   microk8s helm install prometheus prometheus-community/prometheus
+  sleep 600
   microk8s kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np
   microk8s kubectl patch svc prometheus-server-np --type='json' --patch='[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":30002}]'
 }
@@ -31,6 +32,7 @@ run_prometheus(){
 run_grafana(){
   microk8s helm repo add grafana https://grafana.github.io/helm-charts
   microk8s helm install grafana grafana/grafana
+  sleep 500
   microk8s kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np
   microk8s kubectl patch svc grafana-np --type='json' --patch='[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":30003}]'
 }
